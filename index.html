@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekomendasi Kost Putri Bebas Banjir - IDX/SCBD</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- SPLASH SCREEN -->
+    <div id="splash" class="splash">
+        <div class="splash-content">
+            <div class="splash-avatar">
+                <svg viewBox="0 0 300 300" class="avatar-svg" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Outer circle frame -->
+                    <circle cx="150" cy="150" r="145" fill="#e8ddf5"/>
+                    <circle cx="150" cy="150" r="138" fill="#f9f0e8"/>
+                    
+                    <!-- Pink decorative background blobs -->
+                    <ellipse cx="110" cy="150" rx="50" ry="55" fill="#f2c4cf" opacity="0.6"/>
+                    <ellipse cx="190" cy="145" rx="45" ry="50" fill="#f2c4cf" opacity="0.5"/>
+                    <ellipse cx="150" cy="180" rx="55" ry="40" fill="#f2c4cf" opacity="0.4"/>
+                    
+                    <!-- Green leaves / foliage left bottom -->
+                    <ellipse cx="55" cy="200" rx="18" ry="8" fill="#8bc9a0" transform="rotate(-30 55 200)" class="deco-5"/>
+                    <ellipse cx="48" cy="210" rx="15" ry="6" fill="#a0d4aa" transform="rotate(-50 48 210)"/>
+                    <ellipse cx="62" cy="215" rx="12" ry="5" fill="#7ec8c0" transform="rotate(-10 62 215)"/>
+                    
+                    <!-- Big teal ribbon on top -->
+                    <!-- Left ribbon tail flowing down -->
+                    <path d="M70 55 Q55 70 50 90 Q48 105 55 115 Q62 108 65 95 Q70 75 85 60 Z" fill="#6bbfb5" class="bow-left"/>
+                    <path d="M65 55 Q50 72 47 92 Q45 108 52 118 Q42 110 42 95 Q44 70 60 52 Z" fill="#5aada3"/>
+                    <!-- Right ribbon tail flowing down -->
+                    <path d="M230 55 Q245 70 250 90 Q252 105 245 115 Q238 108 235 95 Q230 75 215 60 Z" fill="#6bbfb5" class="bow-right"/>
+                    <path d="M235 55 Q250 72 253 92 Q255 108 248 118 Q258 110 258 95 Q256 70 240 52 Z" fill="#5aada3"/>
+                    <!-- Ribbon bow center -->
+                    <path d="M105 38 Q120 25 150 30 Q180 25 195 38 Q180 48 150 45 Q120 48 105 38 Z" fill="#6bbfb5"/>
+                    <!-- Bow loops -->
+                    <ellipse cx="115" cy="35" rx="22" ry="14" fill="#7ec8c0" transform="rotate(-10 115 35)" class="bow-left"/>
+                    <ellipse cx="185" cy="35" rx="22" ry="14" fill="#7ec8c0" transform="rotate(10 185 35)" class="bow-right"/>
+                    <!-- Bow knot center -->
+                    <ellipse cx="150" cy="38" rx="10" ry="8" fill="#5aada3"/>
+                    <!-- Ribbon zigzag edge -->
+                    <path d="M80 48 L88 42 L96 48 L104 42 L112 48" fill="none" stroke="#5aada3" stroke-width="2"/>
+                    <path d="M188 48 L196 42 L204 48 L212 42 L220 48" fill="none" stroke="#5aada3" stroke-width="2"/>
+
+                    <!-- Small red ribbon decorations -->
+                    <path d="M70 100 Q74 95 78 100 Q74 103 70 100 Z" fill="#e06070" class="deco-1"/>
+                    <path d="M68 100 L72 108" fill="none" stroke="#e06070" stroke-width="1.5"/>
+                    <path d="M76 100 L74 108" fill="none" stroke="#e06070" stroke-width="1.5"/>
+                    
+                    <path d="M220 120 Q224 115 228 120 Q224 123 220 120 Z" fill="#e06070" class="deco-3"/>
+                    <path d="M218 120 L222 128" fill="none" stroke="#e06070" stroke-width="1.5"/>
+                    <path d="M226 120 L224 128" fill="none" stroke="#e06070" stroke-width="1.5"/>
+
+                    <!-- Orange/gold cross sparkles -->
+                    <text x="95" y="62" font-size="10" fill="#e8a040" class="deco-2">✦</text>
+                    <text x="200" y="68" font-size="9" fill="#e8a040" class="deco-4">✦</text>
+                    <text x="230" y="170" font-size="8" fill="#e8a040" class="deco-2">✦</text>
+                    <text x="65" y="140" font-size="7" fill="#e8a040" class="deco-4">✦</text>
+
+                    <!-- === CHARACTER === -->
+                    
+                    <!-- Body / pink striped top -->
+                    <path d="M115 220 Q120 205 150 200 Q180 205 185 220 L190 250 Q150 260 110 250 Z" fill="#e88a9a" class="dress"/>
+                    <!-- Stripes on top -->
+                    <path d="M122 215 Q150 208 178 215" fill="none" stroke="#f5a5b5" stroke-width="2" opacity="0.7"/>
+                    <path d="M118 225 Q150 218 182 225" fill="none" stroke="#f5a5b5" stroke-width="2" opacity="0.7"/>
+                    <path d="M115 235 Q150 228 185 235" fill="none" stroke="#f5a5b5" stroke-width="2" opacity="0.7"/>
+                    
+                    <!-- Neck -->
+                    <rect x="140" y="192" width="20" height="12" rx="5" fill="#fef3ed"/>
+
+                    <!-- Head shape - bigger, rounder (Kewpie style) -->
+                    <ellipse cx="150" cy="148" rx="44" ry="48" fill="#fef3ed" class="face"/>
+                    
+                    <!-- Big rosy cheeks - very prominent like the image -->
+                    <ellipse cx="118" cy="162" rx="14" ry="10" fill="#f08090" opacity="0.55" class="blush-left"/>
+                    <ellipse cx="182" cy="162" rx="14" ry="10" fill="#f08090" opacity="0.55" class="blush-right"/>
+                    
+                    <!-- Eyes - big, round, shiny (Kewpie doll style) -->
+                    <circle cx="132" cy="148" r="11" fill="#1a0e05" class="eye-left"/>
+                    <circle cx="168" cy="148" r="11" fill="#1a0e05" class="eye-right"/>
+                    <!-- Eye shine -->
+                    <circle cx="128" cy="144" r="4" fill="white" class="eye-shine-left"/>
+                    <circle cx="164" cy="144" r="4" fill="white" class="eye-shine-right"/>
+                    <circle cx="135" cy="151" r="2" fill="white" opacity="0.6"/>
+                    <circle cx="171" cy="151" r="2" fill="white" opacity="0.6"/>
+                    
+                    <!-- Small cute nose -->
+                    <ellipse cx="150" cy="160" rx="2" ry="1.5" fill="#e0a090"/>
+                    
+                    <!-- Smile - small happy curve -->
+                    <path d="M140 170 Q150 178 160 170" fill="none" stroke="#c05060" stroke-width="2.5" stroke-linecap="round" class="smile"/>
+                    
+                    <!-- Hair - dark brown, voluminous -->
+                    <!-- Main hair mass on top -->
+                    <path d="M106 130 Q105 95 125 85 Q140 78 150 80 Q160 78 175 85 Q195 95 194 130" fill="#2a1508" class="hair-top"/>
+                    
+                    <!-- Spiky/wispy bangs (like the image - pointed bangs) -->
+                    <path d="M118 115 L125 130 L132 112 L140 128 L148 110 L155 128 L162 112 L170 130 L177 115" fill="#2a1508" class="bangs"/>
+                    
+                    <!-- Left hair bun (big, round, dark) -->
+                    <circle cx="108" cy="105" r="20" fill="#1f1008" class="bun-left"/>
+                    <circle cx="108" cy="105" r="16" fill="#2a1508"/>
+                    <!-- Bun highlight -->
+                    <ellipse cx="104" cy="98" rx="6" ry="4" fill="#3d2010" opacity="0.5"/>
+                    
+                    <!-- Right hair bun -->
+                    <circle cx="192" cy="105" r="20" fill="#1f1008" class="bun-right"/>
+                    <circle cx="192" cy="105" r="16" fill="#2a1508"/>
+                    <ellipse cx="188" cy="98" rx="6" ry="4" fill="#3d2010" opacity="0.5"/>
+                    
+                    <!-- Side hair flowing down (wavy, long) -->
+                    <path d="M108 120 Q102 140 105 160 Q108 180 100 200 Q98 210 102 215" fill="#2a1508" stroke="#1f1008" stroke-width="1" class="hair-left"/>
+                    <path d="M104 125 Q96 145 98 165 Q100 185 94 200" fill="#2a1508" stroke="#1f1008" stroke-width="1"/>
+                    
+                    <path d="M192 120 Q198 140 195 160 Q192 180 200 200 Q202 210 198 215" fill="#2a1508" stroke="#1f1008" stroke-width="1" class="hair-right"/>
+                    <path d="M196 125 Q204 145 202 165 Q200 185 206 200" fill="#2a1508" stroke="#1f1008" stroke-width="1"/>
+                    
+                    <!-- Small bow/ribbon on top of head between buns -->
+                    <path d="M140 82 Q145 75 150 80 Q155 75 160 82 Q155 85 150 83 Q145 85 140 82 Z" fill="#1f1008"/>
+
+                    <!-- Hands on cheeks (both hands cupping face) -->
+                    <!-- Left hand -->
+                    <path d="M108 168 Q105 160 110 155 Q115 152 118 158 Q120 162 118 170 Q115 175 110 174 Z" fill="#fef3ed" stroke="#e8d0c5" stroke-width="0.5" class="hand-left"/>
+                    <!-- Fingers left -->
+                    <ellipse cx="110" cy="155" rx="3" ry="5" fill="#fef3ed" transform="rotate(-20 110 155)"/>
+                    <ellipse cx="115" cy="153" rx="2.5" ry="5" fill="#fef3ed" transform="rotate(-5 115 153)"/>
+                    
+                    <!-- Right hand -->
+                    <path d="M192 168 Q195 160 190 155 Q185 152 182 158 Q180 162 182 170 Q185 175 190 174 Z" fill="#fef3ed" stroke="#e8d0c5" stroke-width="0.5" class="hand-right"/>
+                    <!-- Fingers right -->
+                    <ellipse cx="190" cy="155" rx="3" ry="5" fill="#fef3ed" transform="rotate(20 190 155)"/>
+                    <ellipse cx="185" cy="153" rx="2.5" ry="5" fill="#fef3ed" transform="rotate(5 185 153)"/>
+
+                    <!-- Arms connecting to body -->
+                    <path d="M110 174 Q112 185 115 195 Q118 205 120 210" fill="none" stroke="#fef3ed" stroke-width="8" stroke-linecap="round"/>
+                    <path d="M190 174 Q188 185 185 195 Q182 205 180 210" fill="none" stroke="#fef3ed" stroke-width="8" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h1>List Rekomendasi untuk Sadon</h1>
+            <p class="splash-sub">Kost Putri Bebas Banjir di Sekitar IDX / SCBD</p>
+            <div class="splash-stats">
+                <div class="stat"><span class="stat-num">30</span><span class="stat-label">Kost</span></div>
+                <div class="stat"><span class="stat-num">3</span><span class="stat-label">Zona</span></div>
+                <div class="stat"><span class="stat-num">0</span><span class="stat-label">Banjir</span></div>
+            </div>
+            <button id="btn-enter" class="btn-enter">Lihat Rekomendasi →</button>
+        </div>
+    </div>
+
+    <!-- LIST VIEW -->
+    <div id="list-view" class="list-view hidden">
+        <div class="list-header">
+            <h2>📋 Rekomendasi Kost Putri</h2>
+            <p>Tap salah satu untuk lihat peta & detail</p>
+            <div class="filter-bar">
+                <button class="filter-btn active" data-zone="all">Semua</button>
+                <button class="filter-btn" data-zone="Kebayoran Baru">Kebayoran Baru</button>
+                <button class="filter-btn" data-zone="Setiabudi">Setiabudi</button>
+                <button class="filter-btn" data-zone="Tanah Abang">Tanah Abang</button>
+            </div>
+        </div>
+        <div id="kost-list" class="kost-list"></div>
+    </div>
+
+    <!-- MAP VIEW -->
+    <div id="map-view" class="map-view hidden">
+        <button id="btn-back" class="btn-back">← Kembali</button>
+        <div id="map"></div>
+        <div id="narasi-panel" class="narasi-panel">
+            <div id="narasi-content"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
